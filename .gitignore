@@ -1,3 +1,4 @@
 data/
 *.ipynb_checkpoints/*
 dyes/.ipynb_checkpoints/*
+out_notebooks/.ipynb_checkpoints/*
