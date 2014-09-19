@@ -20,7 +20,7 @@ from IPython.display import display, FileLink
 import pandas as pd
 
 
-def run_single_notebook(notebook_name):
+def run_notebook(notebook_name):
     """Runs the notebook `notebook_name` (file name with no extension).
 
     This function executes notebook with name `notebook_name` (no extension)
@@ -50,8 +50,8 @@ def run_single_notebook(notebook_name):
         display(FileLink(out_nb_name))
 
 
-def run_notebook_ALEX(notebook_name, remove_out=True,
-                      data_ids=['7d', '12d', '17d', '22d', '27d']):
+def run_notebook_template(notebook_name, remove_out=True,
+                          data_ids=['7d', '12d', '17d', '22d', '27d']):
     """Run a template ALEX notebook for all the 5 samples.
 
     Fit results are saved in the folder 'results'.
