@@ -39,7 +39,7 @@ def run_notebook(notebook_name):
     r = NotebookRunner(notebook)
     try:
         r.run_notebook()
-    except Exception, e:
+    except Exception as e:
         msg = 'Error executing the notebook "%s".\n\n' % notebook_name
         msg += 'See notebook "%s" for the traceback.' % out_nb_name
         print msg
