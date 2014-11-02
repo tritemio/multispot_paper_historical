@@ -51,14 +51,17 @@ def run_notebook(notebook_name):
 
 
 def run_notebook_template(notebook_name, remove_out=True,
-                          data_ids=['7d', '12d', '17d', '22d', '27d']):
+                          data_ids=['7d', '12d', '17d', '22d', '27d'],
+                          ph_sel=None):
     """Run a template ALEX notebook for all the 5 samples.
 
     Fit results are saved in the folder 'results'.
     For each sample, the evaluated notebook containing both plots
     and text output is saved in the 'out_notebooks' folder.
     """
-    data_fname = 'results/' + notebook_name + '.txt'
+    assert ph_sel in ['all-ph', 'Dex', 'DexDem', 'AexAem', 'AND-gate', None]
+    ph_sel_suffix = '' if ph_sel is None else '-%s' % ph_sel
+    data_fname = 'results/' + notebook_name + '%s.txt' % ph_sel_suffix
     if remove_out and \
        os.path.exists(data_fname):
             os.remove(data_fname)
@@ -67,11 +70,13 @@ def run_notebook_template(notebook_name, remove_out=True,
     display(FileLink(nb_name_full))
 
     for data_id in data_ids:
-        os.environ['NB_DATA_FILE'] = data_id
+        os.environ['NBPARAM_DATA_ID'] = data_id
+        if ph_sel is not None:
+            os.environ['NBPARAM_PH_SEL'] = ph_sel
         with open(nb_name_full) as f:
             notebook = read(f, 'json')
         out_nb_name = 'out_notebooks/' + notebook_name + \
-                      '-out-%s.ipynb' % data_id
+                      '-out%s-%s.ipynb' % (ph_sel_suffix, data_id)
 
         r = NotebookRunner(notebook)
         try:

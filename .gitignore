@@ -3,3 +3,4 @@ data/
 dyes/.ipynb_checkpoints/*
 out_notebooks/.ipynb_checkpoints/*
 *.pyc
+data
