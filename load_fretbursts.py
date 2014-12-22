@@ -18,6 +18,7 @@ from IPython.display import display, Math, clear_output
 enable_qt_gui = not (len(sys.argv) > 1 and '--nogui' in sys.argv[1:])
 enable_mpl = not (len(sys.argv) > 1 and '--nompl' in sys.argv[1:])
 load_mpl_style = not (len(sys.argv) > 1 and '--nostyle' in sys.argv[1:])
+load_from_source = len(sys.argv) > 1 and '--source' in sys.argv[1:]
 
 ## Enable inline plots and QT windows.
 # Workaround for open-file dialog in IPython Notebook
@@ -28,35 +29,52 @@ if enable_mpl:
 if enable_qt_gui:
     ip.enable_gui("qt")
 
-## Find FRETBursts sources folder
-if os.name == 'posix':
-    # Linux or Mac
-    HOME = os.environ['HOME'] + '/'
-elif os.name == 'nt':
-    # Windows
-    HOME = os.environ['HOMEPATH'] + '/'
-else:
-    raise OSError ("Operating system not recognized (%s)." % os.name)
-
-config_file_name = '.fretbursts'
-with open(HOME + config_file_name) as f:
-    FRETBURSTS_DIR = f.read().strip()
-
 ## Save current dir as NOTEBOOK_DIR
 if not 'NOTEBOOK_DIR' in globals():
     NOTEBOOK_DIR = os.path.abspath('.')
 
-## Change to FRETBursts folder and import the software
-os.chdir(FRETBURSTS_DIR)
+try:
+    if load_from_source:
+        raise ImportError
+    ## Try to import FRETBursts
+    import fretbursts as fb
+    system_install = True
+except ImportError:
+    ## Try FRETBursts in-place execution
 
-from fretbursts import *
-from fretbursts.utils import git
+    ## Find FRETBursts sources folder
+    if os.name == 'posix':
+        # Linux or Mac
+        HOME = os.environ['HOME'] + '/'
+    elif os.name == 'nt':
+        # Windows
+        HOME = os.environ['HOMEPATH'] + '/'
+    else:
+        raise OSError ("Operating system not recognized (%s)." % os.name)
+
+    config_file_name = '.fretbursts'
+    with open(HOME + config_file_name) as f:
+        FRETBURSTS_DIR = f.read().strip()
+
+    ## Change to FRETBursts folder and import the software
+    os.chdir(FRETBURSTS_DIR)
+    import fretbursts as fb
+    system_install = False
+
+finally:
+    from fretbursts import *
+    from fretbursts.utils import git
+
 if load_mpl_style:
     import fretbursts.style
 
-git.print_summary('FRETBursts')
+if not system_install:
+    git.print_summary('FRETBursts')
+    os.chdir(NOTEBOOK_DIR)
+else:
+    print("\nFRETBursts version: %s" % fb.__version__)
+
 citation()
 
-os.chdir(NOTEBOOK_DIR)
 
 
