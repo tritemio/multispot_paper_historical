@@ -5,7 +5,7 @@ This repository contains the notebooks used for the analysis the paper:
 *Multi-spot single-molecule FRET: towards high-throughput analysis of freely diffusing molecules
 Ingargiola et al. (2016)*
 
-You can navigate the notebooks online starting from [index.ipynb](index.ipynb),
+You can navigate the notebooks online starting from [index.ipynb](http://nbviewer.jupyter.org/github/tritemio/multispot_paper/blob/master/index.ipynb),
 or you can also reproduce the full analysis by following the steps below.
 
 ## How to use?
@@ -30,7 +30,7 @@ in the `data/multispot` folder.
 
 ### Use the notebooks
 
-The notebook [index.ipynb](index.ipynb) contains links
+The notebook [index.ipynb](http://nbviewer.jupyter.org/github/tritemio/multispot_paper/blob/master/index.ipynb) contains links
 to all the other notebooks (with a brief explanation of what each notebook does).
 It also contains links the result data files (CSV format, stored in the [results](results) folder).
 
