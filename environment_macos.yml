@@ -3,7 +3,10 @@ channels:
 - defaults
 - conda-forge
 dependencies:
+- _nb_ext_conf=0.3.0=py35_0
+- anaconda-client=1.5.1=py35_0
 - appnope=0.1.0=py35_0
+- clyent=1.2.2=py35_0
 - conda-forge::emcee=2.2.1=py35_0
 - conda-forge::fretbursts=0.5.9=np111py35_1
 - conda-forge::lmfit=0.9.5=py35_0
@@ -18,6 +21,7 @@ dependencies:
 - ipykernel=4.5.0=py35_0
 - ipython=5.1.0=py35_0
 - ipython_genutils=0.1.0=py35_0
+- ipywidgets=5.2.2=py35_0
 - jinja2=2.8=py35_1
 - jsonschema=2.5.1=py35_0
 - jupyter_client=4.4.0=py35_0
@@ -28,8 +32,13 @@ dependencies:
 - matplotlib=1.5.3=np111py35_0
 - mistune=0.7.3=py35_1
 - mkl=11.3.3=0
+- nb_anacondacloud=1.2.0=py35_0
+- nb_conda=2.0.0=py35_0
+- nb_conda_kernels=2.0.0=py35_0
 - nbconvert=4.2.0=py35_0
 - nbformat=4.1.0=py35_0
+- nbpresent=3.0.2=py35_0
+- notebook=4.2.3=py35_0
 - numba=0.28.1=np111py35_0
 - numexpr=2.6.1=np111py35_0
 - numpy=1.11.2=py35_0
@@ -49,9 +58,11 @@ dependencies:
 - python-dateutil=2.5.3=py35_0
 - python.app=1.2=py35_4
 - pytz=2016.7=py35_0
+- pyyaml=3.12=py35_0
 - pyzmq=15.4.0=py35_0
 - qt=5.6.0=0
 - readline=6.2=2
+- requests=2.11.1=py35_0
 - scipy=0.18.1=np111py35_0
 - seaborn=0.7.1=py35_0
 - setuptools=27.2.0=py35_0
@@ -59,12 +70,15 @@ dependencies:
 - sip=4.18=py35_0
 - six=1.10.0=py35_0
 - sqlite=3.13.0=0
+- terminado=0.6=py35_0
 - tk=8.5.18=0
 - tornado=4.4.2=py35_0
 - traitlets=4.3.1=py35_0
 - wcwidth=0.1.7=py35_0
 - wheel=0.29.0=py35_0
+- widgetsnbextension=1.2.6=py35_0
 - xz=5.2.2=0
+- yaml=0.1.6=0
 - zlib=1.2.8=3
 - pip:
   - emcee==2.2.1
@@ -73,6 +87,9 @@ dependencies:
   - jupyter-client==4.4.0
   - jupyter-core==4.2.0
   - lmfit==0.9.5
+  - nb-anacondacloud==1.2.0
+  - nb-conda==2.0.0
+  - nb-conda-kernels==2.0.0
   - phconvert==0.7.2
   - prompt-toolkit==1.0.3
   - tables==3.2.3.1
