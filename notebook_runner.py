@@ -1,7 +1,7 @@
 import os
 import time
 import pandas as pd
-from IPython.display import display, FileLink
+from IPython.display import display, FileLink, HTML
 import nbformat
 from nbconvert.preprocessors import ExecutePreprocessor
 
@@ -17,7 +17,8 @@ def run_notebook(notebook_name):
     """
     timestamp_cell = "**Executed:** %s\n\n**Duration:** %d seconds."
     nb_name_full = notebook_name + '.ipynb'
-    display(FileLink(nb_name_full))
+    display(FileLink(nb_name_full,
+                     result_html_prefix='<b>Source Notebook</b>: '))
 
     out_path = 'out_notebooks/'
     out_nb_name = out_path + notebook_name + '-out.ipynb'
@@ -41,7 +42,8 @@ def run_notebook(notebook_name):
 
         # Write the executed notebook and display link
         nbformat.write(nb, out_nb_name)
-        display(FileLink(out_nb_name))
+        display(FileLink(out_nb_name,
+                         result_html_prefix='<b>Output Notebook</b>: '))
 
 
 def run_notebook_template(notebook_name, remove_out=True,
@@ -61,12 +63,12 @@ def run_notebook_template(notebook_name, remove_out=True,
     if remove_out and \
        os.path.exists(data_fname):
             os.remove(data_fname)
-
     nb_name_full = notebook_name + '.ipynb'
-    display(FileLink(nb_name_full))
-
     out_path = 'out_notebooks/'
 
+    display(FileLink(nb_name_full,
+                     result_html_prefix='<b>Source Notebook</b>: '))
+    display(HTML('<ul>'))
     ep = ExecutePreprocessor(timeout=3600)
     for data_id in data_ids:
         nb = nbformat.read(nb_name_full, as_version=4)
@@ -93,8 +95,10 @@ def run_notebook_template(notebook_name, remove_out=True,
 
             # Write the executed notebook and display link
             nbformat.write(nb, out_nb_name)
-            display(FileLink(out_nb_name))
-
+            display(FileLink(out_nb_name,
+                result_html_prefix='<li><b>Output Notebook</b> (%s): ' % data_id),
+                result_html_suffix='</li>')
+    display(HTML('</ul>'))
     display(pd.read_csv(data_fname).set_index('sample').round(4))
-    dl_link = FileLink(data_fname, result_html_prefix='Download data: ')
+    dl_link = FileLink(data_fname, result_html_prefix='<b>Download Data:</b> ')
     display(dl_link)
