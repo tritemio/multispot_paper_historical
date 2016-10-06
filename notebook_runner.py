@@ -1,7 +1,7 @@
 import os
 import time
 import pandas as pd
-from IPython.display import display, FileLink, HTML
+from IPython.display import display, FileLink
 import nbformat
 from nbconvert.preprocessors import ExecutePreprocessor
 
@@ -27,7 +27,7 @@ def run_notebook(notebook_name):
 
     start_time = time.time()
     try:
-        out = ep.preprocess(nb, {'metadata': {'path': './'}})
+        ep.preprocess(nb, {'metadata': {'path': './'}})
     except Exception:
         msg = 'Error executing the notebook "%s".\n\n' % notebook_name
         msg += 'See notebook "%s" for the traceback.' % out_nb_name
@@ -79,7 +79,7 @@ def run_notebook_template(notebook_name, remove_out=True,
 
         start_time = time.time()
         try:
-            out = ep.preprocess(nb, {'metadata': {'path': './'}})
+            ep.preprocess(nb, {'metadata': {'path': './'}})
         except:
             msg = 'Error executing the notebook "%s".\n\n' % notebook_name
             msg += 'See notebook "%s" for the traceback.' % out_nb_name
@@ -96,5 +96,5 @@ def run_notebook_template(notebook_name, remove_out=True,
             display(FileLink(out_nb_name))
 
     display(pd.read_csv(data_fname).set_index('sample').round(4))
-    display(HTML('Download data:'))
-    display(FileLink(data_fname))
+    dl_link = FileLink(data_fname, result_html_prefix='Download data: ')
+    display(dl_link)
